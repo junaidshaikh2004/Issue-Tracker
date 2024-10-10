@@ -1,8 +1,17 @@
+"use client"
+import classNames from 'classnames';
+import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 import React from 'react'
 import { AiFillBug } from "react-icons/ai";
+import classnames from 'classnames';
 
 const Navbar = () => {
+    
+    
+    const currentPath = usePathname();
+
     const links = [
         {label : 'Dashboard', href:'/'},
         {label : 'Issues', href:'/issues'}
@@ -14,7 +23,12 @@ const Navbar = () => {
         {links.map((link,i)=>(
             <Link 
             key={i} 
-            className='text-zinc-500 hover:text-zinc-800 transition-colors' 
+            className={classnames({
+                'text-blue-600': link.href === currentPath,
+                'text-zinc-500':link.href !== currentPath,
+                'hover:text-zinc-800 transition-colors ':true,
+                'font-bold':true
+            })}
             href={link.href}>{link.label}</Link>
         ))}
         
