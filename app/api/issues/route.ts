@@ -2,21 +2,22 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-const createIsuueSchema = z.object({
-    tittle: z.string().min(1).max(255),
-    discription : z.string().min(1)
-})
+const createIssueSchema = z.object({
+    title: z.string().min(1).max(255),         // Fixed spelling
+    description: z.string().min(1)             // Fixed spelling
+});
 
-export async function POST(request:NextRequest){ 
+export async function POST(request: NextRequest){ 
    const body = await request.json();
-   const validation =  createIsuueSchema.safeParse(body);
-   if(!validation.success)
-    return NextResponse.json(validation.error.errors,{status:400} )
+   const validation = createIssueSchema.safeParse(body);
+   
+   if (!validation.success) {
+      return NextResponse.json(validation.error.errors, { status: 400 });
+   }
 
-   const newIssue = prisma.issue.create({
-    data: {tittle: body.tittle, discription:body.discription}
+   const newIssue = await prisma.issue.create({
+     data: { title: body.title, description: body.description }  // Fixed spelling
    });
 
-   return NextResponse.json(newIssue, {status: 201})
-
+   return NextResponse.json(newIssue, { status: 201 });
 }

@@ -1,8 +1,7 @@
--- CreateTable
 CREATE TABLE `Issue` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `tittle` VARCHAR(255) NOT NULL,
-    `discription` TEXT NOT NULL,
+    `title` VARCHAR(255) NOT NULL,         -- Fixed spelling
+    `description` TEXT NOT NULL,           -- Fixed spelling
     `status` ENUM('OPEN', 'IN_PROGRESS', 'CLOSED') NOT NULL DEFAULT 'OPEN',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
